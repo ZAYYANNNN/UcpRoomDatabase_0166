@@ -52,7 +52,12 @@ class  MahasiswaViewModel(private val repositoryDsn: RepositoryDsn) : ViewModel(
                 snackBarMessage = "input tidak valid. periksa kembali data anda"
             )
         }
+
     }
+    fun resetSnackBarMessage() {
+        uiState = uiState.copy(snackBarMessage = null)
+    }
+
 
 
 }
