@@ -9,7 +9,7 @@ import com.example.ucp2.data.dao.MatkulDao
 import com.example.ucp2.data.entity.Dosen
 import com.example.ucp2.data.entity.Matkul
 
-@Database(entities = [Dosen::class],[Matkul::class], version = 1, exportSchema = false)
+@Database(entities = [Dosen::class, Matkul::class], version = 1, exportSchema = false)
 abstract class KrsDatabase : RoomDatabase() {
     //Mendefinisikan fungsi untuk mengakses data Mahasiswa
 
