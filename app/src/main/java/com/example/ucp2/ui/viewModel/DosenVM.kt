@@ -10,10 +10,18 @@ import com.example.ucp2.repository.RepositoryDsn
 import kotlinx.coroutines.launch
 
 class  MahasiswaViewModel(private val repositoryDsn: RepositoryDsn) : ViewModel() {
+    var uiState by mutableStateOf(DosenUIState())
 
+    //Memperbarui state berdasarkan input pengguna
+    fun updateState(dosenEvent: DosenEvent) {
+        uiState = uiState.copy(
+            dosenEvent = dosenEvent,
+
+            )
+    }
 }
 data class DosenUIState(
-    val DosenEvent: DosenEvent = DosenEvent(),
+    val dosenEvent: DosenEvent = DosenEvent(),
     val isEntryValid: FormErrorState = FormErrorState(),
     val snackBarMessage: String? = null ,
 )
