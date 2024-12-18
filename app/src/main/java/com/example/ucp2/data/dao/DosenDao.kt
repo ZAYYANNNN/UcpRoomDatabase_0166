@@ -10,8 +10,8 @@ interface DosenDao {
     suspend fun insertDosen(dosen: Dosen)
 
     @Query ("Select * FROM dosen ORDER BY nama ASC")
-    fun getAllMahasiswa() : Flow<List<Dosen>>
+    fun getAllDosen() : Flow<List<Dosen>>
 
     @Query("SELECT * FROM dosen WHERE Nidn = :Nidn")
-    fun getMahasiswa (Nidn: String): Flow<Dosen>
+    fun getDosen (Nidn: String): Flow<Dosen>
 }
