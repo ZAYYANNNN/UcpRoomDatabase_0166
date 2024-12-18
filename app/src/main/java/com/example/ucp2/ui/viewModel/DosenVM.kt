@@ -9,6 +9,9 @@ import com.example.ucp2.data.entity.Dosen
 import com.example.ucp2.repository.RepositoryDsn
 import kotlinx.coroutines.launch
 
+class  MahasiswaViewModel(private val repositoryDsn: RepositoryDsn) : ViewModel() {
+
+}
 data class DosenUIState(
     val DosenEvent: DosenEvent = DosenEvent(),
     val isEntryValid: FormErrorState = FormErrorState(),
