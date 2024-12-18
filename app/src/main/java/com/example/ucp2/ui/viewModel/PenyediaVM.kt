@@ -5,17 +5,18 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.ucp2.KrsApp
 
 object PenyediaVM {
     val Factory = viewModelFactory {
         initializer {
             MahasiswaViewModel(
-                krsApp().containerApp.repositoryMhs
+                krsApp().containerApp.repositoryDsn
             )
         }
         initializer {
             HomeMhsViewModel(
-                krsApp().containerApp.repositoryMhs
+                krsApp().containerApp.repositoryDsn
             )
         }
     }
