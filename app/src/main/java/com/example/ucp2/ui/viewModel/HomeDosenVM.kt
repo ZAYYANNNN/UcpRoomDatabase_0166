@@ -7,7 +7,7 @@ import com.example.ucp2.repository.RepositoryDsn
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 
-class HomeMhsViewModel(
+class HomeDosenVM(
     private val repositoryDsn: RepositoryDsn
 ) : ViewModel() {
 

@@ -40,15 +40,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2.data.entity.Dosen
 import com.example.ucp2.ui.customwidget.TopAppBar
-import com.example.ucp2.ui.viewModel.HomeMhsViewModel
+import com.example.ucp2.ui.viewModel.HomeDosenVM
 import com.example.ucp2.ui.viewModel.HomeUiState
 import com.example.ucp2.ui.viewModel.PenyediaVM
 import kotlinx.coroutines.launch
 
 @Composable
-fun HomeMhsView(
-    viewModel: HomeMhsViewModel = viewModel(factory = PenyediaVM.Factory),
-    onAddMhs: () -> Unit = { },
+fun HomeDosen(
+    viewModel: HomeDosenVM = viewModel(factory = PenyediaVM.Factory),
+    onAddDsn: () -> Unit = { },
     onDetailClick: (String) -> Unit = { },
     modifier: Modifier = Modifier
 ){
@@ -63,7 +63,7 @@ fun HomeMhsView(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = onAddMhs,
+                onClick = onAddDsn,
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(16.dp)
             ) {
@@ -77,7 +77,7 @@ fun HomeMhsView(
     ){innerPadding ->
         val homeUiState by viewModel.homeUIState.collectAsState()
 
-        BodyHomeMhsView(
+        BodyHomeDsnView(
             homeUiState = homeUiState,
             onClick = {
                 onDetailClick(it)
@@ -87,7 +87,7 @@ fun HomeMhsView(
     }
 }
 @Composable
-fun BodyHomeMhsView(
+fun BodyHomeDsnView(
     homeUiState: HomeUiState,
     onClick: (String) -> Unit = { },
     modifier: Modifier = Modifier
