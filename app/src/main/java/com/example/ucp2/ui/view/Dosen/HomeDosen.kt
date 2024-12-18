@@ -156,7 +156,7 @@ fun ListDosen(
         items(
             items = listDsn,
             itemContent = { dsn ->
-                CardMhs(
+                CardDsn(
                     dsn = dsn,
                     onClick = { onClick(dsn.Nidn) }
                 )
@@ -166,7 +166,7 @@ fun ListDosen(
 }
 @OptIn (ExperimentalMaterial3Api::class)
 @Composable
-fun CardMhs(
+fun CardDsn(
     dsn: Dosen,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = { }
