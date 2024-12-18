@@ -1,6 +1,5 @@
 package com.example.ucp2.ui.viewModel
 
-
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -10,7 +9,22 @@ import com.example.ucp2.data.entity.Dosen
 import com.example.ucp2.repository.RepositoryDsn
 import kotlinx.coroutines.launch
 
+data class DosenUIState(
+    val DosenEvent: DosenEvent = DosenEvent(),
+    val isEntryValid: FormErrorState = FormErrorState(),
+    val snackBarMessage: String? = null ,
+)
 
+data class FormErrorState(
+    val Nidn: String? = null,
+    val Nama: String? = null,
+    val jenisKelamin: String? = null
+){
+    fun isValid(): Boolean {
+        return Nidn == null && Nama == null && jenisKelamin == null
+    }
+
+}
 
 
 data class DosenEvent(
