@@ -35,7 +35,7 @@ class  MahasiswaViewModel(private val repositoryDsn: RepositoryDsn) : ViewModel(
         if (validateFields()) {
             viewModelScope.launch {
                 try {
-                    repositoryDsn.insertDsn(currentEvent.toDosenEntity())
+                    repositoryDsn.insertDosen(currentEvent.toDosenEntity())
                     uiState = uiState.copy(
                         snackBarMessage = "Data berhasil disimpan",
                         dosenEvent = DosenEvent(), //reset input form
@@ -57,9 +57,6 @@ class  MahasiswaViewModel(private val repositoryDsn: RepositoryDsn) : ViewModel(
     fun resetSnackBarMessage() {
         uiState = uiState.copy(snackBarMessage = null)
     }
-
-
-
 }
 data class DosenUIState(
     val dosenEvent: DosenEvent = DosenEvent(),
