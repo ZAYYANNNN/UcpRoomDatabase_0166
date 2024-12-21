@@ -10,12 +10,12 @@ import com.example.ucp2.KrsApp
 object PenyediaVM {
     val Factory = viewModelFactory {
         initializer {
-            MahasiswaViewModel(
+            DosenVM(
                 krsApp().containerApp.repositoryDsn
             )
         }
         initializer {
-            HomeMhsViewModel(
+            HomeDosenVM(
                 krsApp().containerApp.repositoryDsn
             )
         }

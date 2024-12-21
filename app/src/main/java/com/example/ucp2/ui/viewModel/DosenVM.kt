@@ -9,7 +9,7 @@ import com.example.ucp2.data.entity.Dosen
 import com.example.ucp2.repository.RepositoryDsn
 import kotlinx.coroutines.launch
 
-class  MahasiswaViewModel(private val repositoryDsn: RepositoryDsn) : ViewModel() {
+class  DosenVM(private val repositoryDsn: RepositoryDsn) : ViewModel() {
     var uiState by mutableStateOf(DosenUIState())
 
     //Memperbarui state berdasarkan input pengguna

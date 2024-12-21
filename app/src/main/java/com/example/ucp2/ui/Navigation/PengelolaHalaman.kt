@@ -13,7 +13,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.ucp2.ui.customwidget.TopAppBar
+import com.example.ucp2.ui.view.Dosen.DestinasiInsert
 import com.example.ucp2.ui.view.Dosen.HomeDosen
+import com.example.ucp2.ui.view.Dosen.InsertDosen
 import com.example.ucp2.ui.view.Matkul.HomeMk
 
 @Composable
@@ -21,12 +23,42 @@ fun PengelolaHalaman(
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ) {
+    NavHost(navController = navController, startDestination = "HalamanMenu") {
+        composable(
+            route = "HalamanMenu"
+        ) {
+            HalamanMenu(navController = navController)
+        }
 
+        composable(
+            route = DestinasiHomeDosen.route
+        ) {
+            HomeDosen(
+                onDetailClick = { Nidn ->
+                    navController.navigate("${DestinasiDetailDosen.route}/$Nidn")
+                    println("PengelolaHalaman: Nidn = $Nidn")
+                },
+                onAddDsn = {
+                    navController.navigate(DestinasiInsert.route)
+                },
+                modifier = modifier
+            )
+        }
 
-    NavHost(navController = navController, startDestination = "menu") {
-        composable("menu") { HalamanMenu(navController) }
-        composable("dosen") { HomeDosen() }
-        composable("mataKuliah") { HomeMk()}
+        composable(
+            route = DestinasiInsert.route
+        ) {
+            InsertDosen(
+                onBack = { navController.popBackStack() }, // Navigasi kembali
+                onNavigate = {}
+            )
+        }
+
+        composable(
+            route = "mataKuliah"
+        ) {
+            HomeMk() // Pastikan HomeMk sudah terdefinisi
+        }
     }
 }
 
@@ -43,7 +75,7 @@ fun HalamanMenu(navController: NavHostController) {
     ) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             Button(
-                onClick = { navController.navigate("dosen") },
+                onClick = { navController.navigate(DestinasiHomeDosen.route) },
                 modifier = Modifier.padding(8.dp)
             ) {
                 Text("Menu Dosen")
@@ -58,3 +90,5 @@ fun HalamanMenu(navController: NavHostController) {
         }
     }
 }
+
+
