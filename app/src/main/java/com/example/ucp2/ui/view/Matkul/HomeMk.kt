@@ -10,8 +10,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -47,15 +52,18 @@ fun HomeMk(
     onAddMk: () -> Unit = { },
     onDetailClick: (String) -> Unit = { },
     modifier: Modifier = Modifier
-){
+) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                judul = "Daftar MataKuliah",
-                showBackButton = false,
-                onBack = { },
-                modifier = modifier
-            )
+            Column { // Gunakan Column untuk menambahkan jarak ke bawah
+                TopAppBar(
+                    judul = "Daftar MataKuliah",
+                    showBackButton = false,
+                    onBack = { },
+                    modifier = modifier
+                )
+                Spacer(modifier = Modifier.padding(top = 16.dp)) // Tambahkan jarak di sini
+            }
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -67,10 +75,9 @@ fun HomeMk(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Tambah Dosen"
                 )
-
             }
         }
-    ){innerPadding ->
+    ) { innerPadding ->
         val homeMkUiState by viewModel.homeMkUIState.collectAsState()
 
         BodyHomeMk(
@@ -82,6 +89,7 @@ fun HomeMk(
         )
     }
 }
+
 
 
 @Composable
@@ -120,7 +128,7 @@ fun BodyHomeMk(
                 contentAlignment = Alignment.Center
             ){
                 Text(
-                    text = "Tidak ada data mahasiswa.",
+                    text = "Tidak ada data Matakuliah.",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(16.dp)
@@ -180,26 +188,26 @@ fun CardMk(
         Column(
             modifier = Modifier.padding(8.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Icon(imageVector = Icons.Filled.Person, contentDescription = "")
-                Spacer(modifier = Modifier.padding(4.dp))
-                Text(
-                    text = mk.namaMK,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
-                )
-            }
             Row (
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment =  Alignment.CenterVertically
             ){
-                Icon(imageVector = Icons.Filled.DateRange, contentDescription = "")
+                Icon(imageVector = Icons.Filled.Info, contentDescription = "")
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(
-                    text = mk.sks,
+                    text = mk.kdMK,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(imageVector = Icons.Filled.Email, contentDescription = "")
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text(
+                    text = mk.namaMK,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
@@ -208,11 +216,37 @@ fun CardMk(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment =  Alignment.CenterVertically
             ){
-                Icon(imageVector = Icons.Filled.DateRange, contentDescription = "")
+                Icon(imageVector = Icons.Filled.CheckCircle, contentDescription = "")
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(
-                    text = mk.kdMK,
-                    fontWeight = FontWeight.Bold
+                    text = "${mk.sks} SKS",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
+                )
+            }
+
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment =  Alignment.CenterVertically
+            ){
+                Icon(imageVector = Icons.Filled.ArrowDropDown, contentDescription = "")
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text(
+                    text = "Semester ${mk.smstr}",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
+                )
+            }
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment =  Alignment.CenterVertically
+            ){
+                Icon(imageVector = Icons.Filled.AccountCircle, contentDescription = "")
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text(
+                    text = "Pengampu : ${mk.dospem}",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
                 )
             }
         }

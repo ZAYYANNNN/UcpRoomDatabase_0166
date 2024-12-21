@@ -18,7 +18,9 @@ import com.example.ucp2.ui.customwidget.TopAppBar
 import com.example.ucp2.ui.view.Dosen.DestinasiInsert
 import com.example.ucp2.ui.view.Dosen.HomeDosen
 import com.example.ucp2.ui.view.Dosen.InsertDosen
+import com.example.ucp2.ui.view.Matkul.DestinasiInsertMk
 import com.example.ucp2.ui.view.Matkul.HomeMk
+import com.example.ucp2.ui.view.Matkul.InsertMatkul
 
 @Composable
 fun PengelolaHalaman(
@@ -36,10 +38,6 @@ fun PengelolaHalaman(
             route = DestinasiHomeDosen.route
         ) {
             HomeDosen(
-                onDetailClick = { Nidn ->
-                    navController.navigate("${DestinasiDetailDosen.route}/$Nidn")
-                    println("PengelolaHalaman: Nidn = $Nidn")
-                },
                 onAddDsn = {
                     navController.navigate(DestinasiInsert.route)
                 },
@@ -58,9 +56,23 @@ fun PengelolaHalaman(
         }
 
         composable(
-            route = "mataKuliah"
+            route = DestinasiHomeMatkul.route
         ) {
-            HomeMk() // Pastikan HomeMk sudah terdefinisi
+            HomeMk(
+                onAddMk = {
+                    navController.navigate(DestinasiInsertMk.route)
+                },
+                modifier = modifier
+            )
+        }
+
+        composable(
+            route = DestinasiInsertMk.route
+        ) {
+            InsertMatkul(
+                onBack = { navController.popBackStack() }, // Navigasi kembali
+                onNavigate = {}
+            )
         }
     }
 }
@@ -85,7 +97,7 @@ fun HalamanMenu(navController: NavHostController) {
             }
 
             Button(
-                onClick = { navController.navigate("mataKuliah") },
+                onClick = { navController.navigate(DestinasiHomeMatkul.route) },
                 modifier = Modifier.padding(8.dp)
             ) {
                 Text("Menu Mata Kuliah")
@@ -93,5 +105,6 @@ fun HalamanMenu(navController: NavHostController) {
         }
     }
 }
+
 
 

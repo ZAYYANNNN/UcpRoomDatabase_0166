@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -22,10 +24,10 @@ fun TopAppBar(
     modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        contentAlignment = Alignment.Center // Pastikan konten di tengah
+            .statusBarsPadding(), // Tetap menghindari overlap dengan status bar
+        contentAlignment = Alignment.TopCenter // Pastikan teks berada di bagian atas secara default
     ) {
         if (showBackButton) {
             Row(
@@ -42,12 +44,14 @@ fun TopAppBar(
             }
         }
 
-        // Teks judul
+        // Teks judul dengan padding vertikal
         Text(
             text = judul,
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(top = 16.dp) // Menambahkan jarak ke bawah
         )
     }
 }
