@@ -18,3 +18,9 @@ object DestinasiDetail : AlamatNavigasi {
     const val KDMK = "kdMk"
     val routesWithArg = "$route/{$KDMK}"
 }
+
+object DestinasiUpdate : AlamatNavigasi {
+    override val route = "update"
+    const val KDMK = "kdMk"
+    val routesWithArg = "$route/{$KDMK}"
+}
