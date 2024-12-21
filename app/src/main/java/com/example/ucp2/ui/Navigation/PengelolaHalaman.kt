@@ -16,7 +16,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.ucp2.ui.customwidget.TopAppBar
 import com.example.ucp2.ui.view.Dosen.DestinasiInsert
-import com.example.ucp2.ui.view.Dosen.DetailDosen
 import com.example.ucp2.ui.view.Dosen.HomeDosen
 import com.example.ucp2.ui.view.Dosen.InsertDosen
 import com.example.ucp2.ui.view.Matkul.HomeMk
