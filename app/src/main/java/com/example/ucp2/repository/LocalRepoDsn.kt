@@ -15,8 +15,6 @@ class LocalRepoDsn(private val dosenDao: DosenDao
             return dosenDao.getAllDosen()
         }
 
-        override fun getDosen(Nidn: String): Flow<Dosen> {
-            return dosenDao.getDosen(Nidn)
-        }
+
 
 }

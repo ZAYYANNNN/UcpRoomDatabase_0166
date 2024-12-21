@@ -9,11 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.ucp2.ui.customwidget.TopAppBar
 import com.example.ucp2.ui.view.Dosen.DestinasiInsert
+import com.example.ucp2.ui.view.Dosen.DetailDosen
 import com.example.ucp2.ui.view.Dosen.HomeDosen
 import com.example.ucp2.ui.view.Dosen.InsertDosen
 import com.example.ucp2.ui.view.Matkul.HomeMk
@@ -44,6 +47,7 @@ fun PengelolaHalaman(
                 modifier = modifier
             )
         }
+
 
         composable(
             route = DestinasiInsert.route
