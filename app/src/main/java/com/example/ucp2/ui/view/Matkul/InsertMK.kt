@@ -66,6 +66,7 @@ fun InsertMatkul(
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
+
     //Observasi perubahan snackbarMessage
     LaunchedEffect(uiStateMk.snackBarMessage) {
         uiStateMk.snackBarMessage?.let { message ->
@@ -115,20 +116,19 @@ fun InsertBodyMk(
     onValueChange: (MatkulEvent) -> Unit,
     uiStateMk: MkUIState,
     onClick: () -> Unit,
-    dosenList: List<Dosen>
-
-){
-    Column (
+    dosenList: List<Dosen>  // Pass dosenList here
+) {
+    Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         FormMatkul(
             matkulEvent = uiStateMk.matkulEvent,
             onValueChange = onValueChange,
             errorState = uiStateMk.isEntryValid,
             modifier = Modifier.fillMaxWidth(),
-            dosenList = dosenList
+            dosenList = dosenList  // Use dosenList here
         )
         Button(
             onClick = onClick,
@@ -160,32 +160,32 @@ fun FormMatkul(
 
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = matkulEvent.namaMK,
+            value = matkulEvent.namaMk,
             onValueChange = {
-                onValueChange(matkulEvent.copy(namaMK = it))
+                onValueChange(matkulEvent.copy(namaMk = it))
             },
             label = { Text("Matakuliah") },
-            isError = errorState.namaMK != null,
+            isError = errorState.namaMk != null,
             placeholder = {Text("Masukkan Matakuliah")},
 
             )
         Text(
-            text = errorState.namaMK ?:"",
+            text = errorState.namaMk ?:"",
             color = Color.Red
         )
 
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = matkulEvent.kdMK, onValueChange = {
-                onValueChange(matkulEvent.copy(kdMK = it))
+            value = matkulEvent.kdMk, onValueChange = {
+                onValueChange(matkulEvent.copy(kdMk = it))
 
             },
             label = { Text("Kode") },
-            isError = errorState.kdMK != null,
+            isError = errorState.kdMk != null,
             placeholder = {Text("Masukkan Kode Matkul")},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
-        Text(text = errorState.kdMK ?: "", color = Color.Red)
+        Text(text = errorState.kdMk ?: "", color = Color.Red)
 
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),

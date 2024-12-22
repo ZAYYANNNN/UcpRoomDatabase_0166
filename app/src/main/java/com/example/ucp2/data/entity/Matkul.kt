@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "matkul")
 data class Matkul(
     @PrimaryKey
-    val kdMK: String,
-    val namaMK: String,
+    val kdMk: String,
+    val namaMk: String,
     val sks: String,
     val smstr: String,
     val jenis: String,

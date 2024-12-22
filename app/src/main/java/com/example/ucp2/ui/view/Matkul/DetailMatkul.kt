@@ -37,12 +37,13 @@ import com.example.ucp2.ui.customwidget.TopAppBar
 import com.example.ucp2.ui.viewModel.PenyediaVM
 import com.example.ucp2.ui.viewModelMK.DetailMatkulVM
 import com.example.ucp2.ui.viewModelMK.DetailUiState
+import com.example.ucp2.ui.viewModelMK.PenyediaMkVM
 import com.example.ucp2.ui.viewModelMK.toMatkulEntity
 
 @Composable
 fun DetailMatkul(
     modifier: Modifier,
-    ViewModel: DetailMatkulVM = viewModel(factory = PenyediaVM .Factory),
+    ViewModel: DetailMatkulVM = viewModel(factory = PenyediaMkVM .Factory),
     onBack: () -> Unit = { },
     onEditClick: (String) -> Unit = { },
     onDeleteClick: (String) -> Unit = { },
@@ -50,7 +51,7 @@ fun DetailMatkul(
     Scaffold (
         topBar = {
             TopAppBar(
-                judul = "Detail Mahasiswa",
+                judul = "Detail Matakuliah",
                 showBackButton = true,
                 onBack = onBack,
                 modifier = modifier
@@ -59,14 +60,14 @@ fun DetailMatkul(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    onEditClick(ViewModel.detailUiState.value.detailUiEvent.kdMK)
+                    onEditClick(ViewModel.detailUiState.value.detailUiEvent.kdMk)
                 },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(16.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
-                    contentDescription = "Edit Mahasiswa",
+                    contentDescription = "Edit Matakuliah",
                 )
             }
         }
@@ -74,11 +75,11 @@ fun DetailMatkul(
             innerPadding ->
         val detailUiState by ViewModel.detailUiState.collectAsState()
 
-        BodyDetailMk(
+        BodyDetailMK(
             modifier = Modifier.padding(innerPadding),
             detailUiState = detailUiState,
             onDeleteClick = {
-                ViewModel.deleteMk()
+                ViewModel.deleteMK()
                 onDeleteClick
             }
         )
@@ -86,7 +87,7 @@ fun DetailMatkul(
 }
 
 @Composable
-fun BodyDetailMk(
+fun BodyDetailMK(
     modifier: Modifier = Modifier,
     detailUiState: DetailUiState = DetailUiState(),
     onDeleteClick: () -> Unit = { }
@@ -107,8 +108,8 @@ fun BodyDetailMk(
                     .fillMaxWidth()
                     .padding(16.dp)
             ){
-                ItemDetailMk(
-                    matkul = detailUiState.detailUiEvent.toMatkulEntity(),
+                ItemDetailMK(
+                    matkul =  detailUiState.detailUiEvent.toMatkulEntity(),
                     modifier = Modifier
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
@@ -126,8 +127,8 @@ fun BodyDetailMk(
                             deleteConfirmationRequired = false
                             onDeleteClick()
                         },
-                        onDeleteCacel = { deleteConfirmationRequired = false },
-                        modifier = Modifier.padding(8.dp)
+                        onDeleteCacel = {deleteConfirmationRequired =false},
+                        modifier =  Modifier.padding(8.dp)
                     )
                 }
             }
@@ -145,42 +146,39 @@ fun BodyDetailMk(
         }
     }
 }
-
 @Composable
-fun ItemDetailMk(
-    modifier: Modifier = Modifier,
+fun ItemDetailMK(
+    modifier: Modifier =Modifier,
     matkul: Matkul
-) {
-    Card(
+){
+    Card (
         modifier = modifier
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
         )
-    ) {
-        Column(
+    ){
+        Column (
             modifier = Modifier.padding(16.dp)
-        ) {
-            ComponentDetailMk(judul = "Kode", isinya = matkul.kdMK) // Perbaikan nama properti
+        ){
+            ComponentDetailMK(judul = "Kode", isinya = matkul.kdMk)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "Matakuliah", isinya = matkul.namaMK) // Perbaikan nama properti
+            ComponentDetailMK(judul = "Matakuliah", isinya = matkul.namaMk)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "SKS", isinya = matkul.sks) // Properti SKS sebagai integer perlu diubah ke string
+            ComponentDetailMK(judul = "SKS", isinya = matkul.sks)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "Semester", isinya = matkul.smstr) // Properti Semester sebagai integer perlu diubah ke string
+            ComponentDetailMK(judul = "Semester", isinya = matkul.smstr)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "Jenis Matkul", isinya = matkul.jenis)
+            ComponentDetailMK(judul = "Jenis", isinya = matkul.jenis)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailMk(judul = "Pengampu", isinya = matkul.dospem)
+            ComponentDetailMK(judul = "Pengampu", isinya = matkul.dospem)
             Spacer(modifier = Modifier.padding(4.dp))
         }
     }
 }
-
-
 @Composable
-fun ComponentDetailMk(
+fun ComponentDetailMK(
     modifier: Modifier = Modifier,
     judul: String,
     isinya: String,
@@ -202,7 +200,6 @@ fun ComponentDetailMk(
         )
     }
 }
-
 @Composable
 private fun DeleteConfirmationDialog(
     onDeleteConfirm: () -> Unit, onDeleteCacel: () -> Unit, modifier: Modifier =

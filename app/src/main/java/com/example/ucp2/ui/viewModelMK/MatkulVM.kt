@@ -8,13 +8,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.ucp2.data.entity.Dosen
 import com.example.ucp2.data.entity.Matkul
 import com.example.ucp2.repository.RepoMk
+import com.example.ucp2.repository.RepositoryDsn
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class MatkulVM(private val repoMk: RepoMk) : ViewModel() {
+class MatkulVM(private val repoMk: RepoMk, private val repositoryDsn: RepositoryDsn) : ViewModel() {
     var uiStateMk by mutableStateOf(MkUIState())
+
+    var dosenList by mutableStateOf(listOf<String>())
 
     init {
         loadDosenList()
@@ -30,8 +33,8 @@ class MatkulVM(private val repoMk: RepoMk) : ViewModel() {
     private fun validateFields(): Boolean {
         val event = uiStateMk.matkulEvent
         val errorState = FormErrorStateMk(
-            kdMK = if (event.kdMK.isNotEmpty()) null else "Kode tidak boleh kosong",
-            namaMK = if (event.namaMK.isNotEmpty()) null else "Nama Matkul tidak boleh kosong",
+            kdMk = if (event.kdMk.isNotEmpty()) null else "Kode tidak boleh kosong",
+            namaMk = if (event.namaMk.isNotEmpty()) null else "Nama Matkul tidak boleh kosong",
             sks = if (event.sks.isNotEmpty()) null else "SKS tidak boleh kosong",
             smstr = if (event.smstr.isNotEmpty()) null else "Semester tidak boleh kosong",
             jenis = if (event.jenis.isNotEmpty()) null else "Jenis Matkul tidak boleh kosong",
@@ -100,22 +103,22 @@ data class MkUIState(
 )
 
 data class FormErrorStateMk(
-    val kdMK: String? = null,
-    val namaMK: String? = null,
+    val kdMk: String? = null,
+    val namaMk: String? = null,
     val sks: String? = null,
     val smstr: String? = null,
     val jenis: String? = null,
     val dospem: String? = null
 ) {
     fun isValid(): Boolean {
-        return kdMK == null && namaMK == null && sks == null &&
+        return kdMk == null && namaMk == null && sks == null &&
                 smstr == null && jenis == null && dospem == null
     }
 }
 
 data class MatkulEvent(
-    val kdMK: String = "",
-    val namaMK: String = "",
+    val kdMk: String = "",
+    val namaMk: String = "",
     val sks: String = "",
     val smstr: String = "",
     val jenis: String = "",
@@ -124,8 +127,8 @@ data class MatkulEvent(
 
 // Menyimpan input form ke dalam entity
 fun MatkulEvent.toMatkulEntity(): Matkul = Matkul(
-    kdMK = kdMK, // Yang kiri punya entitas, yang kanan punya event
-    namaMK = namaMK,
+    kdMk = kdMk, // Yang kiri punya entitas, yang kanan punya event
+    namaMk = namaMk,
     sks = sks,
     smstr = smstr,
     jenis = jenis,

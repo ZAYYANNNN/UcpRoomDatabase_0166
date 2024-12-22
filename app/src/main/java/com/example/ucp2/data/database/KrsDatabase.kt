@@ -4,30 +4,41 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.ucp2.data.dao.DosenDao
 import com.example.ucp2.data.dao.MatkulDao
 import com.example.ucp2.data.entity.Dosen
 import com.example.ucp2.data.entity.Matkul
 
-@Database(entities = [Dosen::class, Matkul::class], version = 1, exportSchema = false)
+@Database(entities = [Dosen::class, Matkul::class], version = 2, exportSchema = false)
 abstract class KrsDatabase : RoomDatabase() {
-    //Mendefinisikan fungsi untuk mengakses data Mahasiswa
-
+    // Mendefinisikan fungsi DAO
     abstract fun dosenDao(): DosenDao
     abstract fun matkulDao(): MatkulDao
 
-    companion object{
-        @Volatile // Memastikan bahwa nilai variabel instance selalu sama di
+    companion object {
+        @Volatile
         private var Instance: KrsDatabase? = null
 
-        fun getDatabase(context: Context):KrsDatabase {
+        // Definisi migrasi dari versi 1 ke 2
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                // Contoh: Menambahkan kolom baru pada tabel Matkul
+                database.execSQL("ALTER TABLE Matkul ADD COLUMN sks INTEGER NOT NULL DEFAULT 0")
+            }
+        }
+
+        fun getDatabase(context: Context): KrsDatabase {
             return (Instance ?: synchronized(this) {
                 Room.databaseBuilder(
                     context.applicationContext,
-                    KrsDatabase::class.java, //Class Database
-                    "KrsDatabase" //Nama Database
+                    KrsDatabase::class.java,
+                    "KrsDatabase"
                 )
-                    .build().also { Instance = it }
+                    .fallbackToDestructiveMigration() // Hapus database lama jika versi berubah
+                    .build()
+
             })
         }
     }

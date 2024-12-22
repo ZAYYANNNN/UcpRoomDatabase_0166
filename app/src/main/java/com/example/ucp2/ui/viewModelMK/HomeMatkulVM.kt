@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucp2.data.entity.Matkul
 import com.example.ucp2.repository.RepoMk
+import com.example.ucp2.repository.RepositoryDsn
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +15,8 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 
 class HomeMatkulVM(
-    private val repoMk: RepoMk
+    private val repoMk: RepoMk,
+    private val repositoryDsn: RepositoryDsn
 ) : ViewModel() {
 
     val homeMkUIState: StateFlow<HomeMkUiState> = repoMk.getAllMatkul()

@@ -11,14 +11,30 @@ import com.example.ucp2.ui.viewModel.HomeDosenVM
 
 object PenyediaMkVM {
     val Factory = viewModelFactory {
+
         initializer {
             MatkulVM(
-                krsApp().containerApp.repoMk
+                krsApp().containerApp.repoMk,
+                krsApp().containerApp.repositoryDsn
             )
         }
         initializer {
             HomeMatkulVM(
+                krsApp().containerApp.repoMk,
+                krsApp().containerApp.repositoryDsn
+            )
+        }
+        initializer {
+            DetailMatkulVM(
+                createSavedStateHandle(),
                 krsApp().containerApp.repoMk
+            )
+        }
+        initializer {
+            UpdateMatkulVM(
+                createSavedStateHandle(),
+                krsApp().containerApp.repoMk,
+                krsApp().containerApp.repositoryDsn
             )
         }
     }

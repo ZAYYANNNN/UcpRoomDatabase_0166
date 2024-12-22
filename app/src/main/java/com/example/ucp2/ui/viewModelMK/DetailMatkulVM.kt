@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucp2.data.entity.Matkul
 import com.example.ucp2.repository.RepoMk
+import com.example.ucp2.repository.RepositoryDsn
 import com.example.ucp2.ui.Navigation.DestinasiDetail
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
@@ -52,7 +53,7 @@ class DetailMatkulVM(
             ),
         )
 
-    fun deleteMk(){
+    fun deleteMK(){
         detailUiState.value.detailUiEvent.toMatkulEntity().let {
             viewModelScope.launch {
                 repoMk.deleteMatkul(it)
@@ -60,6 +61,9 @@ class DetailMatkulVM(
         }
     }
 }
+
+
+
 
 data class DetailUiState(
     val detailUiEvent : MatkulEvent = MatkulEvent(),
@@ -74,13 +78,14 @@ data class DetailUiState(
         get() = detailUiEvent != MatkulEvent()
 
 }
+
 /* Data class untuk menampung data yang akan ditampilkan di UI*/
 
 //memindahkan data dari entity ke ui
 fun Matkul.toDetailUiEvent(): MatkulEvent{
     return MatkulEvent(
-        kdMK = kdMK,
-        namaMK = namaMK,
+        kdMk = kdMk,
+        namaMk = namaMk,
         sks = sks,
         smstr = smstr,
         jenis = jenis,
