@@ -1,6 +1,8 @@
 package com.example.ucp2.ui.Navigation
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,12 +12,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -146,48 +151,76 @@ fun HalamanMenu(navController: NavHostController) {
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            // Logo Gundar di atas
-            Image(
-                painter = painterResource(id = R.drawable.gundar2),
-                contentDescription = "Logo Gundar",
-                modifier = Modifier
-                    .size(200.dp) // Memperbesar ukuran gambar
-                    .align(Alignment.CenterHorizontally) // Menempatkan gambar di tengah
-                    .padding(top = 16.dp) // Menambahkan padding top untuk memberikan jarak dengan bagian atas layar
-            )
-
-            // Tombol-tombol di bawah logo
-            Column(
+            // Box untuk latar belakang logo
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 32.dp) // Menambahkan padding top setelah logo agar tombol tidak terlalu rapat
+                    .background(color = androidx.compose.ui.graphics.Color.White) // Background putih
+                    .padding(vertical = 32.dp) // Jarak vertikal untuk menempatkan logo lebih ke bawah
             ) {
-                Button(
-                    onClick = { navController.navigate(DestinasiHomeDosen.route) },
+                // Logo Gundar di tengah
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo Gundar",
                     modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth()
-                        .height(60.dp)
-                ) {
-                    Text(
-                        text = "Menu Dosen",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                Button(
-                    onClick = { navController.navigate(DestinasiHomeMatkul.route) },
+                        .size(200.dp) // Memperbesar ukuran gambar
+                        .align(Alignment.Center) // Menempatkan gambar di tengah
+                )
+            }
+
+            // Spacer untuk menambahkan jarak antara logo dan box menu
+            Spacer(modifier = Modifier.height(24.dp)) // Atur jarak sesuai kebutuhan
+
+            // Box untuk Menu Dosen dan Menu Mata Kuliah
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight() // Mengisi seluruh tinggi layar
+                    .clip(RoundedCornerShape(16.dp)) // Membuat sudut rounded untuk seluruh box
+                    .background(color = androidx.compose.ui.graphics.Color(0xFFF0F0F0)) // Background cream untuk box menu
+                    .padding(16.dp) // Padding dalam box
+            ) {
+                // Column untuk menampung kedua tombol dalam box
+                Column(
                     modifier = Modifier
-                        .padding(8.dp)
                         .fillMaxWidth()
-                        .height(60.dp)
+                        .fillMaxHeight(), // Membuat kolom mengisi seluruh tinggi box
+                    verticalArrangement = Arrangement.spacedBy(8.dp) // Jarak antar tombol
                 ) {
-                    Text(
-                        text = "Menu Mata Kuliah",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+                    Button(
+                        onClick = { navController.navigate(DestinasiHomeDosen.route) },
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth()
+                            .height(60.dp),
+                        colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                            containerColor = androidx.compose.ui.graphics.Color(0xFF001F54) // Warna navy
+                        )
+                    ) {
+                        Text(
+                            text = "Menu Dosen",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = androidx.compose.ui.graphics.Color.White // Warna teks putih
+                        )
+                    }
+                    Button(
+                        onClick = { navController.navigate(DestinasiHomeMatkul.route) },
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth()
+                            .height(60.dp),
+                        colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                            containerColor = androidx.compose.ui.graphics.Color(0xFF001F54) // Warna navy
+                        )
+                    ) {
+                        Text(
+                            text = "Menu Mata Kuliah",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = androidx.compose.ui.graphics.Color.White // Warna teks putih
+                        )
+                    }
                 }
             }
         }
