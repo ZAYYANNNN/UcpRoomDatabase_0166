@@ -1,5 +1,6 @@
 package com.example.ucp2.ui.view.Matkul
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -9,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -54,14 +56,19 @@ fun HomeMk(
     ) { innerPadding ->
         val homeMkUiState by viewModel.homeMkUIState.collectAsState()
 
-        BodyHomeMk(
-            homeMkUiState = homeMkUiState,
-            onClick = { onDetailClick(it) },
-            modifier = Modifier.padding(innerPadding)
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFF0F0F0)) // Warna abu muda untuk latar belakang utama
+        ) {
+            BodyHomeMk(
+                homeMkUiState = homeMkUiState,
+                onClick = { onDetailClick(it) },
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
     }
 }
-
 @Composable
 fun BodyHomeMk(
     homeMkUiState: HomeMkUiState,
@@ -142,7 +149,6 @@ fun ListMatkul(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardMk(
     mk: Matkul,
@@ -153,44 +159,88 @@ fun CardMk(
         onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color(0xFF001F54) // Warna navy untuk latar belakang kartu
+        )
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(imageVector = Icons.Filled.Info, contentDescription = null)
+                Icon(imageVector = Icons.Filled.Info, contentDescription = null, tint = Color.White)
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = mk.kdMk,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
+                    color = Color.White // Teks putih
                 )
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(imageVector = Icons.Filled.Email, contentDescription = null)
+                Icon(imageVector = Icons.Filled.Email, contentDescription = null, tint = Color.White)
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = mk.namaMk
-                    ,
+                    text = mk.namaMk,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = Color.White // Teks putih
                 )
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(imageVector = Icons.Filled.CheckCircle, contentDescription = null)
+                Icon(imageVector = Icons.Filled.CheckCircle, contentDescription = null, tint = Color.White)
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = "${mk.sks} SKS",
                     fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = Color.White // Teks putih
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(imageVector = Icons.Filled.Star, contentDescription = null, tint = Color.White)
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "Semester : ${mk.smstr}",
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 16.sp,
+                    color = Color.White // Teks putih
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(imageVector = Icons.Filled.ArrowDropDown, contentDescription = null, tint = Color.White)
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text =  "Jenis : ${mk.jenis}",
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 16.sp,
+                    color = Color.White // Teks putih
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(imageVector = Icons.Filled.Person, contentDescription = null, tint = Color.White)
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text =  "Pengampu : ${mk.dospem}",
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 16.sp,
+                    color = Color.White // Teks putih
                 )
             }
         }
