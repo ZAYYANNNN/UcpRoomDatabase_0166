@@ -1,4 +1,5 @@
 package com.example.ucp2.ui.view.Dosen
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 
 
@@ -13,8 +14,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -34,6 +40,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,15 +57,18 @@ fun HomeDosen(
     viewModel: HomeDosenVM = viewModel(factory = PenyediaVM.Factory),
     onAddDsn: () -> Unit = { },
     onDetailClick: (String) -> Unit = { },
+    onBack: () -> Unit = { },
     modifier: Modifier = Modifier
-){
+) {
     Scaffold(
         topBar = {
             TopAppBar(
                 judul = "Daftar Dosen",
                 showBackButton = false,
                 onBack = { },
-                modifier = modifier
+                modifier = modifier,
+
+
             )
         },
         floatingActionButton = {
@@ -70,22 +80,27 @@ fun HomeDosen(
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Tambah Dosen"
-                )
 
+                )
             }
         }
-    ){innerPadding ->
+    ) { innerPadding ->
         val homeUiState by viewModel.homeUIState.collectAsState()
 
-        BodyHomeDsnView(
-            homeUiState = homeUiState,
-            onClick = {
-                onDetailClick(it)
-            },
-            modifier = Modifier.padding(innerPadding)
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFF0F0F0)) // Warna abu muda
+        ) {
+            BodyHomeDsnView(
+                homeUiState = homeUiState,
+                onClick = { onDetailClick(it) },
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
     }
 }
+
 @Composable
 fun BodyHomeDsnView(
     homeUiState: HomeUiState,
@@ -164,55 +179,61 @@ fun ListDosen(
         )
     }
 }
-@OptIn (ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardDsn(
     dsn: Dosen,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = { }
 ) {
-    Card (
+    Card(
         onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
-    ){
+            .padding(8.dp),
+        colors = androidx.compose.material3.CardDefaults.cardColors(
+            containerColor = Color(0xFF001F54) // Warna navy
+        )
+    ) {
         Column(
             modifier = Modifier.padding(8.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
-            ){
-                Icon(imageVector = Icons.Filled.Person, contentDescription = "")
+            ) {
+                Icon(imageVector = Icons.Filled.Person, contentDescription = "", tint = Color.White)
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(
                     text = dsn.Nama,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
+                    color = Color.White // Warna teks putih
                 )
             }
-            Row (
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment =  Alignment.CenterVertically
-            ){
-                Icon(imageVector = Icons.Filled.DateRange, contentDescription = "")
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(imageVector = Icons.Filled.Create, contentDescription = "", tint = Color.White)
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(
                     text = dsn.Nidn,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    color = Color.White // Warna teks putih
                 )
             }
-            Row (
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment =  Alignment.CenterVertically
-            ){
-                Icon(imageVector = Icons.Filled.DateRange, contentDescription = "")
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(imageVector = Icons.Filled.Face, contentDescription = "", tint = Color.White)
                 Spacer(modifier = Modifier.padding(4.dp))
                 Text(
                     text = dsn.jenisKelamin,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White // Warna teks putih
                 )
             }
         }
